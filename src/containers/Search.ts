@@ -14,6 +14,7 @@ const mapStateToProps = (state: RootState) => ({
   offset: state.ui.searchResults.offset,
   limit: state.ui.searchResults.limit,
   totalCount: state.ui.searchResults.totalCount,
+  viewType: state.ui.searchResultsViewType,
 });
 
 const mapDispatchToProps = (dispatch: InputProps['dispatch']) => {
@@ -27,6 +28,9 @@ const mapDispatchToProps = (dispatch: InputProps['dispatch']) => {
     },
     setSearchResultsPage(offset?: number, limit?: number, totalCount?: number) {
       dispatch(actions.setSearchResultsPage(offset, limit, totalCount));
+    },
+    setSearchResultsViewType(viewType: string) {
+      dispatch(actions.setSearchResultsViewType(viewType));
     },
   };
 };

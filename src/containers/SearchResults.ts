@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 
 import QUERY_CHARACTERS_WITH_COUNT from '../queries/charactersAndResultCount';
 import { Response, InputProps } from '../types/response/SearchResults';
-import SearchResults from '../components/Search/SearchResults';
+import SearchResults from '../components/Search/results';
 import RootState from '../types/RootState';
 
 const mapStateToProps = (state: RootState) => ({

@@ -39,7 +39,7 @@ const renderPageNumbers = (currentPage: number, pageCount: number, setPage: (pag
 
 const renderEllipses = (isStart: boolean, currentPage: number, pageCount: number) => {
   if ((isStart && currentPage > 2 && pageCount > 2) ||
-      (!isStart && currentPage < pageCount + 3)) {
+      (!isStart && pageCount > currentPage + 3)) {
     return <span>...</span>;
   }
 

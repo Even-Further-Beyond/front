@@ -22,5 +22,7 @@ export interface InputProps {
   offset: number;
   limit: number;
   currentTotalCount?: number;
+  viewType: string;
   setSearchResultsPage: (offset?: number, limit?: number, totalCount?: number) => {};
+  setSearchResultsViewType: (viewType: string) => {};
 }

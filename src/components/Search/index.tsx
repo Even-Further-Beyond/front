@@ -4,11 +4,14 @@ import { ChildProps } from 'react-apollo';
 import CircularProgress from 'material-ui/CircularProgress';
 import KeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import KeyboardArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import { Response, InputProps } from '../../types/response/Search';
 import SearchForm from './SearchForm';
 import SearchResults from '../../containers/SearchResults';
 import Pagination from '../Pagination';
+import { VIEW_TYPES } from '../../reducers/ui';
 
 class Search extends React.Component<ChildProps<InputProps, Response>, {}> {
   hideForm = () => {
@@ -90,12 +93,42 @@ class Search extends React.Component<ChildProps<InputProps, Response>, {}> {
           tagIds={searchForm.tagIds}
           offset={this.props.offset}
           limit={this.props.limit}
+          viewType={this.props.viewType}
           setSearchResultsPage={this.props.setSearchResultsPage}
+          setSearchResultsViewType={this.props.setSearchResultsViewType}
         />
       );
     }
 
     return null;
+  }
+
+  handleChange = (event, index, value) => {
+    this.props.setSearchResultsViewType(value);
+  }
+
+  renderViewTypesDropdown() {
+    const menuItems = [];
+
+    for (const key of Object.keys(VIEW_TYPES)) {
+      menuItems.push(
+        <MenuItem
+          key={VIEW_TYPES[key]}
+          value={VIEW_TYPES[key]}
+          primaryText={VIEW_TYPES[key]}
+        />,
+      );
+    }
+
+    return (
+      <SelectField
+        floatingLabelText={'Change View'}
+        value={this.props.viewType}
+        onChange={this.handleChange}
+      >
+        {menuItems}
+      </SelectField>
+    );
   }
 
   render() {
@@ -124,6 +157,7 @@ class Search extends React.Component<ChildProps<InputProps, Response>, {}> {
           />
         {this.renderPagination()}
         {this.renderSearchResults()}
+        {this.renderPagination()}
       </div>
     );
   }
