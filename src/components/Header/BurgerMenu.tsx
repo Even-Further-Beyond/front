@@ -19,7 +19,7 @@ interface StyledLink extends React.DetailedReactHTMLElement<{}, HTMLElement> {
 
 class BurgerMenu extends React.Component<Props, State> {
   constructor() {
-    super();
+    super(null);
     this.state = { open: false };
   }
 
