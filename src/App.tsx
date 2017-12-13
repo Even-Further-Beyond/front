@@ -14,6 +14,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Tags from './components/Tags';
 import Feedback from './components/Feedback';
+import Character from './containers/Character';
 
 injectTapEventPlugin();
 
@@ -55,6 +56,7 @@ class App extends React.Component<Props, {}> {
             <Route exact={true} path='/about' component={About} />
             <Route exact={true} path='/tags' component={Tags} />
             <Route exact={true} path='/feedback' component={Feedback} />
+            <Route {...this.props} exact={true} path='/character/:id' component={Character} />
           </BodyDiv>
         </AppDiv>
       </MuiThemeProvider>
