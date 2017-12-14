@@ -18,6 +18,7 @@ interface Character {
   name: string;
   description?: string;
   alternativeNames?: string[];
+  japaneseName?: string;
   ageStart?: number;
   ageEnd?: number;
   heightStart?: number;
@@ -30,6 +31,10 @@ interface Character {
   hairColors?: Color[];
   ageGroups?: AgeGroup[];
   anime: Anime[];
+  animeAndRoles: {
+    anime: Anime[];
+    role: string;
+  };
   catings?: Casting[];
   tags?: Tag[];
   images?: Image[];

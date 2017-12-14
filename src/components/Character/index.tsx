@@ -7,60 +7,37 @@ import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 import styled from 'styled-components';
 
-import styles from '../../styles';
 import { Response, InputProps } from '../../types/response/Character';
-
-const List = styled.div`
-  font-size: ${styles.fontSizeSmall};
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-left: 20px;
-`;
+import AnimeList from './AnimeList';
+import VoiceActorList from './VoiceActorList';
 
 const Tags = styled.div`
-  margin: 10px 15px 15px 15px;
-  padding-bottom: 50px;
+  margin-top: 15px;
+  padding-bottom: 25px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
+const Traits = styled.div`
+  span:not(:first-child) {
+    margin-left: 40px;
+  }
+  margin-bottom: 20px;
 `;
 
 class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
   imagePath = `${process.env.REACT_APP_S3_URL}/images/`;
   character = null;
 
-  renderVoiceActors() {
-    const castings = this.character.castings;
-
-    const duplicates = [];
-    const newCastings = castings.filter((casting) => {
-      if (duplicates.indexOf(casting.person.name) === -1) {
-        duplicates.push(casting.person.name);
-        return true;
-      }
-      return false;
-    });
-
-    return newCastings.map((casting) => (
-      <div key={casting.person.id}>
-        <h5>{casting.person.name} - {casting.language.name}</h5>
-        <img
-          alt={casting.person.name}
-          src={casting.person.images ? `${this.imagePath}people/small/${casting.person.images[0].imagePath}` : null}
-        />
-      </div>
-    ));
-  }
-
   renderAnimes() {
-    const anime = this.character.anime;
+    const animeAndRoles = this.character.animeAndRoles;
 
-    return anime.map((a) => (
-      <div key={a.id}>
-        <h5>{a.mainTitle}</h5>
+    return animeAndRoles.map((animeAndRole) => (
+      <div key={animeAndRole.anime.id}>
+        <h5>{animeAndRole.anime.mainTitle}</h5>
         <img
-          alt={a.mainTitle}
-          src={`${this.imagePath}anime/small/${a.images[0].imagePath}`}
+          alt={animeAndRole.anime.mainTitle}
+          src={`${this.imagePath}anime/small/${animeAndRole.anime.images[0].imagePath}`}
         />
       </div>
     ));
@@ -75,11 +52,52 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     );
   }
 
+  getCommaSentence(object) {
+    const length = Object.keys(object).length;
+
+    let commaSentence = '';
+
+    if (length === 1) {
+      commaSentence = object[0].name;
+    } else if (length === 2) {
+      commaSentence = `${object[0].name} and ${object[1].name}`;
+    } else {
+      for (let i = 0; i < length; i++) {
+        if (i === length - 1) {
+          commaSentence = `${commaSentence} and ${object[i].name}`;
+        } else {
+          commaSentence = `${commaSentence}, ${object[i].name}`;
+        }
+      }
+    }
+
+    return commaSentence;
+  }
+
+  renderTraits() {
+    const character = this.character;
+
+    const gender = character.gender ? character.gender.description : 'N/A';
+    const hairLength = character.hairLength ? character.hairLength.description : 'N/A';
+    const hairColors = Object.keys(character.hairColors).length ? this.getCommaSentence(character.hairColors) : 'N/A';
+    const eyeColors = Object.keys(character.eyeColors).length ? this.getCommaSentence(character.eyeColors) : 'N/A';
+
+    return (
+      <Traits>
+        <span>Gender: {gender}</span>
+        <span>Hair Length: {hairLength}</span>
+        <span>Hair Colors: {hairColors}</span>
+        <span>Eye Colors: {eyeColors}</span>
+      </Traits>
+    );
+
+  }
+
   renderTags() {
     const tags = this.character.tags;
 
     return tags.map((tag) => (
-      <Chip>{tag.name}</Chip>
+      <Chip style={{margin: '15px 0px 0px 15px'}}>{tag.name}</Chip>
     ));
   }
 
@@ -96,28 +114,33 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     }
 
     return (
-      <Card>
-        <div>
-          {this.character.images ? this.renderImage() : null}
-          <div>
-            <List>
-              {this.renderAnimes()}
-            </List>
-            <List>
-              {this.renderVoiceActors()}
-            </List>
+      <div>
+        <Card>
+          <div style={{display: 'flex'}}>
+            {this.character.images ? this.renderImage() : null}
+            <CardText style={{whiteSpace: 'pre-wrap'}} >
+              <CardTitle
+                title={this.character.name}
+                subtitle={this.character.japaneseName}
+                style={{marginBottom: '15px', padding: '0px'}}
+              />
+              {this.renderTraits()}
+              {this.character.description}
+            </CardText>
           </div>
-        </div>
-        <CardTitle title={this.character.name} />
-        <CardText
-          style={{whiteSpace: 'pre-wrap'}}
-        >
-          {this.character.description}
-        </CardText>
-        <Tags>
-          {this.renderTags()}
-        </Tags>
-      </Card>
+          <Tags>
+            {this.renderTags()}
+          </Tags>
+        </Card>
+        <AnimeList
+          animeAndRoles={this.character.animeAndRoles}
+          imagePath={this.imagePath}
+        />
+        <VoiceActorList
+          castings={this.character.castings}
+          imagePath={this.imagePath}
+        />
+      </div>
     );
   }
 }
