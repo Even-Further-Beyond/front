@@ -38,13 +38,16 @@ const QUERY_CHARACTER_BY_ID = gql`
         name
         description
       }
-      anime {
-        id
-        slug
-        mainTitle
-        images {
-          imagePath
+      animeAndRoles {
+        anime {
+          id
+          slug
+          mainTitle
+          images {
+            imagePath
+          }
         }
+        role
       }
       castings {
         person {
