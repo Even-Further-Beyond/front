@@ -15,6 +15,8 @@ export interface InputProps {
   toggleSearchForm: () => {};
   saveSubmittedSearchForm: (searchForm: SearchForm) => {};
   setSearchResultsPage: (offset?: number, limit?: number, totalCount?: number) => {};
+  setSearchResultsViewType: (viewType: string) => {};
+  viewType: string;
   inputTagIds: string[];
   submittedSearchForm: SearchForm;
   hidden: boolean;

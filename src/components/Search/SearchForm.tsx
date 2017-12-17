@@ -42,6 +42,8 @@ const Container = styled.div`
 
 class SearchForm extends React.Component<Props, {}> {
   private unspecified = '0';
+  private offset = 0;
+  private limit = 30;
 
   private selects = [
     {
@@ -68,7 +70,7 @@ class SearchForm extends React.Component<Props, {}> {
 
   onSearch = (form) => {
     this.props.saveSubmittedSearchForm(form);
-    this.props.setSearchResultsPage(0, 10);
+    this.props.setSearchResultsPage(this.offset, this.limit);
     this.props.toggleSearchForm();
   }
 

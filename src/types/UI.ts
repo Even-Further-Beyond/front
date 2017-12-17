@@ -8,6 +8,7 @@ interface UI {
     limit?: number;
     totalCount?: number;
   };
+  searchResultsViewType: string;
 }
 
 export default UI;
