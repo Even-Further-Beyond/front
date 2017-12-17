@@ -52,23 +52,28 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     );
   }
 
-  getCommaSentence(object) {
-    const length = Object.keys(object).length;
+  insertComma(sentence: string) {
+    return sentence ? `${sentence},` : '';
+  }
 
+  getCommaSentence(object: { name: string }) {
+    const length = Object.keys(object).length;
     let commaSentence = '';
+
+    let i = 0;
+
+    const insertComma = (sentence: string) => {
+      return sentence ? `${sentence},` : '';
+    };
 
     if (length === 1) {
       commaSentence = object[0].name;
-    } else if (length === 2) {
-      commaSentence = `${object[0].name} and ${object[1].name}`;
     } else {
-      for (let i = 0; i < length; i++) {
-        if (i === length - 1) {
-          commaSentence = `${commaSentence} and ${object[i].name}`;
-        } else {
-          commaSentence = `${commaSentence}, ${object[i].name}`;
-        }
+      for (; i < length - 2; i++) {
+        commaSentence = `${insertComma(commaSentence)} ${object[i].name}`;
       }
+
+      commaSentence = `${insertComma(commaSentence)} ${object[length - 2].name} and ${object[length - 1].name}`;
     }
 
     return commaSentence;
@@ -76,11 +81,12 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
 
   renderTraits() {
     const character = this.character;
+    const NA = 'NA';
 
-    const gender = character.gender ? character.gender.description : 'N/A';
-    const hairLength = character.hairLength ? character.hairLength.description : 'N/A';
-    const hairColors = Object.keys(character.hairColors).length ? this.getCommaSentence(character.hairColors) : 'N/A';
-    const eyeColors = Object.keys(character.eyeColors).length ? this.getCommaSentence(character.eyeColors) : 'N/A';
+    const gender = character.gender ? character.gender.description : NA;
+    const hairLength = character.hairLength ? character.hairLength.description : NA;
+    const hairColors = Object.keys(character.hairColors).length ? this.getCommaSentence(character.hairColors) : NA;
+    const eyeColors = Object.keys(character.eyeColors).length ? this.getCommaSentence(character.eyeColors) : NA;
 
     return (
       <Traits>
@@ -99,6 +105,19 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     return tags.map((tag) => (
       <Chip style={{margin: '15px 0px 0px 15px'}}>{tag.name}</Chip>
     ));
+  }
+
+  getCastings() {
+    const duplicates = new Set([]);
+    const newCastings = this.character.castings.filter((casting) => {
+      if (duplicates.has(casting.person.name)) {
+        duplicates.add(casting.person.name);
+        return true;
+      }
+      return false;
+    });
+
+    return newCastings;
   }
 
   render() {
@@ -137,7 +156,7 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
           imagePath={this.imagePath}
         />
         <VoiceActorList
-          castings={this.character.castings}
+          castings={this.getCastings()}
           imagePath={this.imagePath}
         />
       </div>

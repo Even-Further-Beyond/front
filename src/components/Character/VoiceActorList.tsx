@@ -26,17 +26,8 @@ const List = styled.div`
   overflow-x: hidden
 `;
 
-const renderVoiceActors = (castings, imagePath) => {
-  const duplicates = [];
-  const newCastings = castings.filter((casting) => {
-    if (duplicates.indexOf(casting.person.name) === -1) {
-      duplicates.push(casting.person.name);
-      return true;
-    }
-    return false;
-  });
-
-  return newCastings.map((casting) => (
+const renderVoiceActors = (castings: Casting[], imagePath: string) => {
+  return castings.map((casting) => (
     <VoiceActors key={casting.person.id}>
       <h5>{casting.person.name}</h5>
       <h5>{casting.language.name}</h5>

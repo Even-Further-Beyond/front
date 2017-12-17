@@ -6,11 +6,13 @@ import { Card } from 'material-ui/Card';
 import Anime from '../../types/data/Anime';
 import styles from '../../styles';
 
+interface AnimeAndRole {
+  anime: Anime[];
+  role: string;
+}
+
 interface Props {
-  animeAndRoles: {
-    anime: Anime[];
-    role: string;
-  };
+  animeAndRoles: AnimeAndRole[];
   imagePath: string;
 }
 
