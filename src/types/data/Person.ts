@@ -1,16 +1,17 @@
 interface Image {
-  animeId?: string;
+  personId?: string;
   imagePath: string;
   createdAt?: Date;
 }
 
-interface Anime {
+interface Person {
   id: number;
-  malId?: number;
-  mainTitle: string;
+  malId: number;
+  slug: string;
+  name: string;
   images: Image[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export default Anime;
+export default Person;

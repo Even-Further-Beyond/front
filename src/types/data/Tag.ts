@@ -5,6 +5,8 @@ interface Tag {
   isCategory?: boolean;
   parentId?: number;
   slug?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default Tag;
