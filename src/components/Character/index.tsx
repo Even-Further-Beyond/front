@@ -112,9 +112,9 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     const newCastings = this.character.castings.filter((casting) => {
       if (duplicates.has(casting.person.name)) {
         duplicates.add(casting.person.name);
-        return true;
+        return false;
       }
-      return false;
+      return true;
     });
 
     return newCastings;
