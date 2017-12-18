@@ -103,7 +103,7 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
     const tags = this.character.tags;
 
     return tags.map((tag) => (
-      <Chip style={{margin: '15px 0px 0px 15px'}}>{tag.name}</Chip>
+      <Chip key={tag.id} style={{margin: '15px 0px 0px 15px'}}>{tag.name}</Chip>
     ));
   }
 
