@@ -8,7 +8,8 @@ interface Anime {
   id: number;
   malId?: number;
   mainTitle: string;
-  images: Image[];
+  image?: Image;
+  images?: Image[];
   createdAt?: Date;
   updatedAt?: Date;
 }

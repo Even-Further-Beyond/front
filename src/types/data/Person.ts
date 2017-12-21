@@ -9,7 +9,8 @@ interface Person {
   malId: number;
   slug: string;
   name: string;
-  images: Image[];
+  image?: Image;
+  images?: Image[];
   createdAt?: Date;
   updatedAt?: Date;
 }

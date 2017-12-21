@@ -10,7 +10,7 @@ import { VIEW_TYPES } from '../../../reducers/ui';
 import { InputProps, Response } from '../../../types/response/SearchResults';
 
 class SearchResults extends React.Component<ChildProps<InputProps, Response>, {}> {
-  imagePath = `${process.env.REACT_APP_S3_URL}/images/character/small/`;
+  imagePath = `${process.env.REACT_APP_S3_URL}/images/characters/small/`;
 
   headers: Map<string, string> = new Map<string, string>()
     .set('Image', 'image')

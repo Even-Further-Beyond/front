@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ChildProps } from 'react-apollo';
+import * as _ from 'lodash';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import Chip from 'material-ui/Chip';
@@ -29,25 +30,11 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
   imagePath = `${process.env.REACT_APP_S3_URL}/images/`;
   character = null;
 
-  renderAnimes() {
-    const animeAndRoles = this.character.animeAndRoles;
-
-    return animeAndRoles.map((animeAndRole) => (
-      <div key={animeAndRole.anime.id}>
-        <h5>{animeAndRole.anime.mainTitle}</h5>
-        <img
-          alt={animeAndRole.anime.mainTitle}
-          src={`${this.imagePath}anime/small/${animeAndRole.anime.images[0].imagePath}`}
-        />
-      </div>
-    ));
-  }
-
   renderImage() {
     return (
       <img
         alt={this.character.name}
-        src={`${this.imagePath}character/big/${this.character.images[0].imagePath}`}
+        src={`${this.imagePath}characters/big/${this.character.image.imagePath}`}
       />
     );
   }
@@ -81,12 +68,12 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
 
   renderTraits() {
     const character = this.character;
-    const NA = 'NA';
+    const NA = 'N/A';
 
     const gender = character.gender ? character.gender.description : NA;
     const hairLength = character.hairLength ? character.hairLength.description : NA;
-    const hairColors = Object.keys(character.hairColors).length ? this.getCommaSentence(character.hairColors) : NA;
-    const eyeColors = Object.keys(character.eyeColors).length ? this.getCommaSentence(character.eyeColors) : NA;
+    const hairColors = !_.isEmpty(character.hairColors) ? this.getCommaSentence(character.hairColors) : NA;
+    const eyeColors = !_.isEmpty(character.eyeColors) ? this.getCommaSentence(character.eyeColors) : NA;
 
     return (
       <Traits>
@@ -136,7 +123,7 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
       <div>
         <Card>
           <div style={{display: 'flex'}}>
-            {this.character.images ? this.renderImage() : null}
+            {this.character.image ? this.renderImage() : null}
             <CardText style={{whiteSpace: 'pre-wrap'}} >
               <CardTitle
                 title={this.character.name}
@@ -153,11 +140,11 @@ class Character extends React.Component<ChildProps<InputProps, Response>, {}> {
         </Card>
         <AnimeList
           animeAndRoles={this.character.animeAndRoles}
-          imagePath={this.imagePath}
+          imagePath={`${this.imagePath}anime/small/`}
         />
         <VoiceActorList
           castings={this.getCastings()}
-          imagePath={this.imagePath}
+          imagePath={`${this.imagePath}people/small/`}
         />
       </div>
     );

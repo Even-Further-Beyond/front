@@ -30,7 +30,7 @@ const QUERY_CHARACTER_BY_ID = gql`
       eyeColors {
         name
       }
-      images {
+      image {
         imagePath
       }
       tags {
@@ -43,7 +43,7 @@ const QUERY_CHARACTER_BY_ID = gql`
           id
           slug
           mainTitle
-          images {
+          image {
             imagePath
           }
         }
@@ -53,7 +53,7 @@ const QUERY_CHARACTER_BY_ID = gql`
         person {
           id
           name
-          images {
+          image {
             imagePath
           }
         }

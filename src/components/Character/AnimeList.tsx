@@ -40,7 +40,7 @@ const renderAnime = (animeAndRoles, imagePath) => {
         height={135}
         width={90}
         alt={animeAndRole.anime.mainTitle}
-        src={`${imagePath}anime/small/${animeAndRole.anime.images[0].imagePath}`}
+        src={animeAndRole.anime.image ? `${imagePath}${animeAndRole.anime.image.imagePath}` : null}
       />
     </Anime>
   ));

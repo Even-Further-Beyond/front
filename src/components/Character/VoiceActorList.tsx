@@ -35,7 +35,7 @@ const renderVoiceActors = (castings: Casting[], imagePath: string) => {
         height={90}
         width={60}
         alt={casting.person.name}
-        src={casting.person.images ? `${imagePath}people/small/${casting.person.images[0].imagePath}` : null}
+        src={casting.person.image ? `${imagePath}${casting.person.image.imagePath}` : null}
       />
     </VoiceActors>
   ));
