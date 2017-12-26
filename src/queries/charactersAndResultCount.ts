@@ -62,7 +62,7 @@ const QUERY_CHARACTERS_WITH_COUNT = gql`
         tags {
           id
         }
-        images {
+        image {
           imagePath
         }
       }

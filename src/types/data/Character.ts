@@ -37,6 +37,7 @@ interface Character {
   };
   catings?: Casting[];
   tags?: Tag[];
+  image?: Image;
   images?: Image[];
   createdAt?: Date;
   updatedAt?: Date;

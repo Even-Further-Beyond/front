@@ -33,8 +33,8 @@ const renderColumns = (character: Character, headers: Map<string, string>, image
 
     if (key === 'image') {
       let imageUrl = null;
-      if (character.images[0]) {
-        imageUrl = `${imagePath}${character.images[0].imagePath}`;
+      if (character.image) {
+        imageUrl = `${imagePath}${character.image.imagePath}`;
       }
       rowBody.push(<img key={imageUrl} src={imageUrl} alt={character.name} />);
     } else if (key === 'anime') {
