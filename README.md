@@ -1,5 +1,7 @@
 ### Anime Characters Client
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Even-Further-Beyond/front.svg)](https://greenkeeper.io/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). This web client will alow users to search for anime characters using a variety of tags/traits and anime/voice actor specifications.
 
 ### To run:
